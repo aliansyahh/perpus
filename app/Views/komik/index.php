@@ -1,7 +1,7 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<!-- Main Content -->
+
 <div class="main-content">
     <section class="section">
         <div class="section-header">
@@ -14,36 +14,38 @@
         </div>
 
         <div class="section-body">
-            <?php if (session()->getFlashdata('pesan')) : ?>
-            <div class="alert alert-success" role="alert">
-                <?= session()->getFlashdata('pesan'); ?>
-            </div>
-            <?php endif; ?>
-
+            <h2 class="section-title">Tables</h2>
+            <p class="section-lead">
+                Examples for opt-in styling of tables (given their prevalent use in JavaScript plugins) with Bootstrap.
+            </p>
 
             <div class="row">
-                <div class="col-12 col-md-14 col-lg-14">
+                <div class="col-12 col-md-12 col-lg-12">
                     <div class="card">
                         <div class="card-header">
                             <a href="<?= base_url('/komik/create'); ?>" class="btn btn-primary">Tambah Data</a>
                         </div>
                         <div class="card-body">
+                            <?php if (session()->getFlashdata('pesan')) : ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= session()->getFlashdata('pesan'); ?>
+                            </div>
+                            <?php endif; ?>
                             <table class="table table-hover text-center">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
+                                        <th scope="col">Sampul</th>
                                         <th scope="col">Judul</th>
-                                        <th scope="col">Penulis</th>
-                                        <th scope="col">Aksi</th>
+                                        <th scope="col">aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     <?php $no = 1; ?>
                                     <?php foreach ($komik as $k) : ?>
                                     <tr>
                                         <th scope="row"><?= $no++; ?></th>
-                                        <td><img class="my-2" src="<?= base_url('assets/img'); ?>/<?= $k['sampul']; ?>"
+                                        <td><img class="my-2" src="<?= base_url('/assets/img'); ?>/<?= $k['sampul']; ?>"
                                                 width="70" alt=""></td>
                                         <td><?= $k['judul']; ?></td>
                                         <td><a href="<?= base_url('/komik'); ?>/<?= $k['slug']; ?>"
@@ -55,7 +57,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>

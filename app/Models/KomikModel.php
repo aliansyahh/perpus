@@ -7,15 +7,17 @@ use CodeIgniter\Model;
 class KomikModel extends Model
 {
     protected $table      = 'komik';
-    protected $allowedFields = ['judul', 'slug', 'penulis', 'penerbit'];
+
+    protected $allowedFields = ['judul', 'slug', 'penulis', 'penerbit', 'sampul'];
+
     protected $useTimestamps = true;
 
-    function getDataKomik($slug = false)
+    public function getData($slug = false)
     {
         if ($slug == false) {
             return $this->findAll();
         }
-
+        session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan.');
         return $this->where(['slug' => $slug])->first();
     }
 }

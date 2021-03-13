@@ -7,30 +7,43 @@ use App\Models\KomikModel;
 class Komik extends BaseController
 {
     protected $KomikModel;
-
     public function __construct()
     {
         $this->KomikModel = new KomikModel();
     }
+
     public function index()
     {
-        $data = ['komik' => $this->KomikModel->getDataKomik()];
-
+        $data = ['komik' => $this->KomikModel->getData()];
         return view('komik/index', $data);
     }
+
     public function detail($slug)
     {
-        $data = ['komik' => $this->KomikModel->getDataKomik($slug)];
+        $data = ['komik' => $this->KomikModel->getData($slug)];
         return view('komik/detail', $data);
     }
 
     public function create()
     {
-        return view('komik/create');
+        $data = ['validation' => \Config\Services::validation()];
+        return view('komik/create', $data);
     }
 
     public function save()
     {
+        if (!$this->validate([
+            'judul' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Harus Diisi.'
+                ]
+            ]
+        ])) {
+            $validation = \Config\Services::validation();
+            return redirect()->to(base_url('komik/create'))->withInput()->with('validation', $validation);
+        }
+
         $slug = url_title($this->request->getVar('judul'), '-', true);
         $this->KomikModel->save([
             'judul' => $this->request->getVar('judul'),
@@ -39,7 +52,8 @@ class Komik extends BaseController
             'penerbit' => $this->request->getVar('penerbit'),
             'sampul' => $this->request->getVar('sampul')
         ]);
-        session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
+
+        session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan.');
         return redirect()->to(base_url('/komik'));
     }
 }

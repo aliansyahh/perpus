@@ -9,8 +9,7 @@
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
             <li class="nav-item dropdown">
-                <a href="<?= base_url('/Home'); ?>" class="nav-link"><i
-                        class="fas fa-fire"></i><span>Dashboard</span></a>
+                <a href="<?= base_url(''); ?>" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
             <li class="menu-header">Starter</li>
             <li class="nav-item dropdown">
